@@ -24,27 +24,16 @@ int 	ft_z_work(t_fdflist *head)
 	return (0);
 }
 
-int 	ft_work(int key, t_fdflist *head)
+void	ft_draw_coord(t_fdflist *head, int x, int y)
 {
-	int i = 800;
-	int x = 0;
-	int y = 0;
+	int i = 0;
 
-	if (key == 53)
-		ft_esc(head);
-	while (i--)
+	while (i < 100)
 	{
-		mlx_pixel_put(head->mlx, head->wind, x, y, 0x2f442);
-		y = y + 1;
-		x = x + 1;
-	}
-	while (i < 900)
-	{
-		if (i < 500)
+		if (i < 50)
 		{
 			mlx_pixel_put(head->mlx, head->wind, x, y, 0xff00fa);
-			y = y - 1;
-			x = x - 1;
+			y = y + 1;
 		}
 		else
 		{
@@ -52,6 +41,44 @@ int 	ft_work(int key, t_fdflist *head)
 			x = x + 1;
 		}
 		i++;
+	}
+	i = 0;
+	while (i < 100)
+	{
+		if (i < 50)
+		{
+			mlx_pixel_put(head->mlx, head->wind, x, y, 0xff00fa);
+			y = y - 1;
+		}
+		else
+		{
+			mlx_pixel_put(head->mlx, head->wind, x, y, 0x00d8ff);
+			x = x - 1;
+		}
+		i++;
+	}
+}
+
+int 	ft_work(int key, t_fdflist *head)
+{
+	int i = 0;
+	int j = 0;
+	int x = 100;
+	int y = 100;
+
+	if (key == 53)
+		ft_esc(head);
+	while (i++ < 10)
+	{
+		ft_draw_coord(head, x, y);
+		while (j++ < 10)
+		{
+			ft_draw_coord(head, x, y);
+			x = x + 50;
+		}
+		x = 100;
+		y = y + 50;
+		j = 0;
 	}
 	return (0);
 }
