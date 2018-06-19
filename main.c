@@ -24,7 +24,7 @@ int 	ft_z_work(t_fdflist *head)
 	return (0);
 }
 
-void	ft_draw_coord(t_fdflist *head, int x, int y)
+void	ft_draw_square(t_fdflist *head, int x, int y)
 {
 	int i = 0;
 
@@ -63,20 +63,20 @@ int 	ft_work(int key, t_fdflist *head)
 {
 	int i = 0;
 	int j = 0;
-	int x = 100;
-	int y = 100;
+	int x = 250;
+	int y = 250;
 
 	if (key == 53)
 		ft_esc(head);
 	while (i++ < 10)
 	{
-		ft_draw_coord(head, x, y);
+		ft_draw_square(head, x, y);
 		while (j++ < 10)
 		{
-			ft_draw_coord(head, x, y);
+			ft_draw_square(head, x, y);
 			x = x + 50;
 		}
-		x = 100;
+		x = 250;
 		y = y + 50;
 		j = 0;
 	}
