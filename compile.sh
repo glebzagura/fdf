@@ -1,2 +1,1 @@
-gcc -I /usr/local/include main.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
-./a.out
+gcc -I /usr/local/include -I -r libft/libft.a main.c ft_open_proc.c get_next_line.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit

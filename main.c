@@ -88,12 +88,12 @@ int		main(int argc, char **argv)
 	t_fdflist	*head;
 
 	head = malloc(sizeof(t_fdflist));
-
-	if (!(head->mlx = mlx_init()))
-		return (0);
-	head->wind = mlx_new_window(head->mlx, 1000, 1000, "gzagura");
-	mlx_pixel_put(head->mlx, head->wind, 244, 66, 0xf44242);
-	mlx_hook(head->wind, 2, 0, ft_work, head);
-	mlx_loop(head->mlx);
+	// if (!(head->mlx = mlx_init()))
+		// return (0);
+	// head->wind = mlx_new_window(head->mlx, 1000, 1000, "gzagura");
+	if (argc > 1)
+		ft_open(head, argv[1]);
+	// mlx_hook(head->wind, 2, 0, ft_work, head);
+	// mlx_loop(head->mlx);
 	return (0);
 }
