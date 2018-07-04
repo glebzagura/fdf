@@ -13,19 +13,24 @@
 #include <stdlib.h>
 #include "libft.h"
 
-char		*ft_strsub(char const *s, unsigned int start, size_t len)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char	*string;
-	int		i;
+	size_t	i;
+	size_t	j;
+	char	*sub_str;
 
-	if (!s || start + len > ft_strlen(s))
-		return (NULL);
-	i = -1;
-	string = (char *)malloc(sizeof(char) * (len + 1));
-	if (!string)
-		return (NULL);
-	while (++i < (int)len)
-		*(string + i) = *(s + start + i);
-	*(string + i) = '\0';
-	return (string);
+	if (s == NULL)
+		return (0);
+	sub_str = ft_strnew(len);
+	if (sub_str == NULL)
+		return (0);
+	i = start;
+	j = 0;
+	while (s[i] != '\0' && j < len)
+	{
+		sub_str[j] = (char)s[i];
+		i++;
+		j++;
+	}
+	return (sub_str);
 }

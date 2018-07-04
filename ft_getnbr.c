@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lstworker.c                                        :+:      :+:    :+:   */
+/*   ft_getnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gzagura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/19 18:51:07 by gzagura           #+#    #+#             */
-/*   Updated: 2018/06/19 18:51:09 by gzagura          ###   ########.fr       */
+/*   Created: 2018/06/27 15:01:26 by gzagura           #+#    #+#             */
+/*   Updated: 2018/06/27 15:01:29 by gzagura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vector	*ft_add_new(t_vector *head)
+int		ft_getnbr(char *str)
 {
-	t_vector *new;
+	size_t	i;
+	int		result;
 
-	new = (t_vector *)malloc(sizeof(t_vector));
-	new->next = NULL;
-	if (head)
+	result = 0;
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while ((str[i] >= '0') && (str[i] <= '9'))
 	{
-		while (head->next)
-			head = head->next;
-		head->next = new;
+		result = (result * 10) + (str[i] - '0');
+		i++;
 	}
-	return (new);
+	if (str[0] == '-')
+		result = result * (-1);
+	return (result);
 }

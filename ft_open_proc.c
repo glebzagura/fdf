@@ -14,18 +14,18 @@
 
 void	ft_strlen_spec(char *str, t_fdflist *head)
 {
-	int len_y;
-	int len_x;
+	int height;
+	int width;
 	int i;
 
 	i = 0;
-	len_x = 0;
-	len_y = 0;
-	while (str[i] != '\n')
+	width = 0;
+	height = 0;
+	while (str[i] != '\0' && str[i] != '\n')
 	{
 		while (str[i] != '\n' && str[i] == ' ')
 			i++;
-		len_x++;
+		width++;
 		while (str[i] != '\n' && str[i] != ' ')
 			i++;
 	}
@@ -33,90 +33,65 @@ void	ft_strlen_spec(char *str, t_fdflist *head)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
-			len_y++;
+			height++;
 		i++;
 	}
-	head->len_y = len_y;
-	head->len_x = len_x;
+	head->height = height;
+	head->width = width;
 }
 
-void	ft_str_nospace(char *str, t_fdflist *head, int **arr_int)
+void	ft_num(t_fdflist *head, int x, int y, int number)
+{
+	head->curr->z = number;
+	head->curr->x = x;
+	head->curr->y = y;
+	head->curr = ft_add_new(head->vector);
+}
+
+void	ft_str_nospace(char *str, t_fdflist *head)
 {
 	int		i;
-	int		j;
-	int 	coco;
-	char	*lolo;
+	int 	end;
+	int 	start;
+	int		x;
+	int		y;
 
-	arr_int = (int**)malloc(sizeof(int*) * (head->len_y));
 	i = 0;
-	j = 0;
-	coco = 0;
-	arr_int[coco] = (int*)malloc(sizeof(int) * (head->len_x));
-	coco = 1;
+	y = 0;
+	x = 0;
 	while (str[i] != '\0')
-	{
-		if (str[i] == '\n')
-		{
-			arr_int[coco] = (int*)malloc(sizeof(int) * (head->len_x));
-			coco++:
-		}
+	{				
 		if (str[i] != ' ')
 		{
-			while (str[i] != '\0' && str[i] != ' ')
-			{
-				arr[coco][j] = str[i];
-				j++;
-			}
+			start = i;
+			while (str[i] != '\0' && str[i] != ' ' && str[i] != '\n')
+				i++;
+			end = i;
+			ft_num(head, x, y, ft_getnbr(ft_strsub(str, start, end)));
+			x++;
 		}
-		i++;
-	}
-	arr_int[j] = NULL;
-	return (arr_int);
-}
-
-void	ft_workness(char **data, t_fdflist *head)
-{
-	int i;
-	int j;
-	int plus;
-
-	i = 0;
-	plus = 50;
-	while (data[i])
-	{
-		j = 0;
-		while(data[i][j])
+		if (str[i] == '\n' )
 		{
-			if (data[i][j] != '\0' && data[i][j + 1] != '\0')
-			{
-				if (data[i][j] > '0')
-				{
-					head->x0 = 0;
-					head->y0 = 0;
-				}
-				if (data[i][j + 1] > '0')
-				{
-					head->x1 = ft_atoi(data[i][j]) + plus;
-					head->y1 = ft_atoi(data[i][j]) + plus;
-				}
-				ft_ai(head);
-			}
-			j++;
+			y++;
+			x = 0;
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
-
 }
 
-int 	ft_open(t_fdflist *head, char *str)
+
+
+int 	ft_write_data(t_fdflist *head)
 {
 	int 	fd;
-	int		**data;
 	char	*buffer;
 	char	*tmp;
-	int 	i;
+	char	*str;
 
-	i = 0;
+	head->vector = ft_add_new(NULL);
+	head->curr = head->vector;
+	str = ft_strdup(head->filename);
 	fd = open(str, O_RDONLY);
 	buffer = NULL;
 	tmp = ft_strnew(1);
@@ -127,8 +102,15 @@ int 	ft_open(t_fdflist *head, char *str)
 		free(buffer);
 	}
 	ft_strlen_spec(tmp, head);
-	tmp = ft_str_nospace(tmp);
-	data = 
-	ft_workness(data, head);
+	ft_str_nospace(tmp, head);
 	return (0);
 }
+
+
+
+
+
+
+
+
+
