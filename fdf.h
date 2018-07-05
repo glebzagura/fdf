@@ -13,8 +13,11 @@
 #ifndef FDF_H
 # define FDF_H
 
-# define COLOR 0x00d8ff
-# define RAD	0.001
+# define COLOR	0x00d8ff
+# define RAD	0.005
+# define PX		* 30 + 30
+# define PY		* 30 + 30
+# define VEC head->vector
 
 # include "minilibx/mlx.h"
 # include <unistd.h>
@@ -37,7 +40,6 @@ typedef struct 			s_fdflist
 	void 				*wind;
 	void 				*mlx;
 	char				*filename;
-	int					**data;
 	int					height;
 	int					width;
 	int					w_height;

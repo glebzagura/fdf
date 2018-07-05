@@ -10,7 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_rotation()
+void	ft_rotation_left(t_fdflist *head)
 {
-	
+// 	int aba, obo;
+// 	t_vector *hedo;
+// 	t_vector *eddo;
+
+// 	hedo = VEC;
+// 	while (hedo->next)
+// 	{
+// 		eddo = hedo->next;
+// 		while (eddo)
+// 		{
+// 			if (eddo->x == hedo->x)
+// 			{
+				
+// 				ft_line(head, hedo->x, hedo->y, eddo->x, eddo->y);
+// 			}
+// 			eddo = eddo->next;
+// 		}
+// 		hedo = hedo->next;
+// 	}
+// 	hedo = VEC;
+// 	while (hedo->next)
+// 	{
+// 		if (hedo->next->next && hedo->x != (head->width - 1))
+// 			ft_line(head, hedo->x, hedo->y, hedo->next->x, hedo->next->y);
+// 		hedo = hedo->next;
+// 	}
 }

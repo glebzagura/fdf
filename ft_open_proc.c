@@ -48,29 +48,39 @@ void	ft_num(t_fdflist *head, int x, int y, int number)
 	head->curr = ft_add_new(head->vector);
 }
 
+int		ft_space(char *str, int i, char **line)
+{
+	int		start;
+	int		end;
+
+	start = i;
+	while (str[i] != '\0' && str[i] != ' ' && str[i] != '\n')
+		i++;
+	end = i;
+	*line = ft_strsub(str, start, end);
+	return (end);
+}
+
 void	ft_str_nospace(char *str, t_fdflist *head)
 {
+	char	*num;
 	int		i;
-	int 	end;
-	int 	start;
 	int		x;
 	int		y;
 
 	i = 0;
 	y = 0;
 	x = 0;
+	num = NULL;
 	while (str[i] != '\0')
-	{				
+	{
 		if (str[i] != ' ')
 		{
-			start = i;
-			while (str[i] != '\0' && str[i] != ' ' && str[i] != '\n')
-				i++;
-			end = i;
-			ft_num(head, x, y, ft_getnbr(ft_strsub(str, start, end)));
+			i = ft_space(str, i, &num);
+			ft_num(head, x, y, ft_getnbr(num));
 			x++;
 		}
-		if (str[i] == '\n' )
+		if (str[i] == '\n')
 		{
 			y++;
 			x = 0;
@@ -80,19 +90,15 @@ void	ft_str_nospace(char *str, t_fdflist *head)
 	}
 }
 
-
-
-int 	ft_write_data(t_fdflist *head)
+int		ft_write_data(t_fdflist *head)
 {
-	int 	fd;
 	char	*buffer;
 	char	*tmp;
-	char	*str;
+	int		fd;
 
 	head->vector = ft_add_new(NULL);
 	head->curr = head->vector;
-	str = ft_strdup(head->filename);
-	fd = open(str, O_RDONLY);
+	fd = open(head->filename, O_RDONLY);
 	buffer = NULL;
 	tmp = ft_strnew(1);
 	while (get_next_line(fd, &buffer) > 0)
@@ -105,12 +111,3 @@ int 	ft_write_data(t_fdflist *head)
 	ft_str_nospace(tmp, head);
 	return (0);
 }
-
-
-
-
-
-
-
-
-

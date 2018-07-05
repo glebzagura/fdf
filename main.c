@@ -29,12 +29,40 @@ int 	le_hook(int key, t_fdflist *head)
 	mlx_string_put(head->mlx, head->wind, 50, 50, COLOR, "Hello");
 	if (key == 53)
 		ft_esc(head);
+	// if (key == 123)
+	// 	ft_rotation_left(head);
 	return (0);
 }
 
-void	first_draw(t_fdflist *head)
+// void	first_draw(t_fdflist *head)
+// {
+// 	ft_bresen(head);
+// }
+
+void	ft_bresen(t_fdflist *head)
 {
-	
+	t_vector *hedo;
+	t_vector *eddo;
+
+	hedo = VEC;
+	while (hedo->next)
+	{
+		eddo = hedo->next;
+		while (eddo)
+		{
+			if (eddo->x == hedo->x)
+				ft_line(head, hedo->x, hedo->y, eddo->x, eddo->y);
+			eddo = eddo->next;
+		}
+		hedo = hedo->next;
+	}
+	hedo = VEC;
+	while (hedo->next)
+	{
+		if (hedo->next->next && hedo->x != (head->width - 1))
+			ft_line(head, hedo->x, hedo->y, hedo->next->x, hedo->next->y);
+		hedo = hedo->next;
+	}
 }
 
 int		main(int argc, char **argv)
@@ -47,7 +75,7 @@ int		main(int argc, char **argv)
 	if (!(head->mlx = mlx_init()))
 		return (0);
 	head->wind = mlx_new_window(head->mlx, 1000, 1000, "gzagura");
-	first_draw(head);
+	ft_bresen(head);
 	mlx_hook(head->wind, 2, 0, le_hook, head);
 	mlx_loop(head->mlx);
 	return (0);
