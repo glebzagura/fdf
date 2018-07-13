@@ -14,10 +14,6 @@
 
 void    ft_line(t_fdflist *head, int x0, int y0, int x1, int y1)
 {
-  x0 = x0 PX;
-  x1 = x1 PX;
-  y0 = y0 PY;
-  y1 = y1 PY;
   int dx = abs(x1 - x0);
   int dy = abs(y1 - y0);
   int sx = x1 >= x0 ? 1 : -1;
@@ -60,3 +56,80 @@ void    ft_line(t_fdflist *head, int x0, int y0, int x1, int y1)
     }
   }
 }
+
+int    transform_x(t_fdflist *head, t_vector *eddo)
+{
+  int x0;
+  int x1;
+  int x2;
+  int y0;
+  int y1;
+  int y2;
+  int z0;
+  int z1;
+
+  x0 = eddo->x;
+  y0 = ((eddo->y - head->height / 2) PY) * cos(head->rotx) + ((eddo->z - head->cz) PZ) * sin(head->rotx) + (head->height / 2) PY + head->plus_h;
+  z0 = ((eddo->z - head->cz) PZ) * cos(head->rotx) - ((eddo->y - head->height / 2) PY) * sin(head->rotx) + head->cz PZ;
+
+  x1 = ((x0 - head->width / 2) PX) * cos(head->roty) - (z0 - head->cz) * sin(head->roty) + (head->width / 2) PX + head->plus_w;
+  y1 = y0;
+  z1 = (z0 - head->cz) * cos(head->roty) + (x0 - head->width / 2) * sin(head->roty) + head->cz;
+
+  x2 = (x1 - head->width / 2) * cos(head->rotz) + (y1 - head->height / 2) * sin(head->rotz) + head->width / 2;
+  y2 = (y1 - head->height / 2) * cos(head->rotz) - (x1 - head->width / 2) * sin(head->rotz) + head->height / 2;
+
+  return (x2);
+}
+
+int    transform_y(t_fdflist *head, t_vector *eddo)
+{
+  int x0;
+  int x1;
+  int x2;
+  int y0;
+  int y1;
+  int y2;
+  int z0;
+  int z1;
+
+ 
+  x0 = eddo->x;
+  y0 = ((eddo->y - head->height / 2) PY) * cos(head->rotx) + ((eddo->z - head->cz) PZ) * sin(head->rotx) + (head->height / 2) PY + head->plus_h;
+  z0 = ((eddo->z - head->cz) PZ) * cos(head->rotx) - ((eddo->y - head->height / 2) PY) * sin(head->rotx) + head->cz PZ;
+
+  x1 = ((x0 - head->width / 2) PX) * cos(head->roty) - (z0 - head->cz) * sin(head->roty) + (head->width / 2) PX + head->plus_w;
+  y1 = y0;
+  z1 = (z0 - head->cz) * cos(head->roty) + (x0 - head->width / 2) * sin(head->roty) + head->cz;
+
+  x2 = (x1 - head->width / 2) * cos(head->rotz) + (y1 - head->height / 2) * sin(head->rotz) + head->width / 2;
+  y2 = (y1 - head->height / 2) * cos(head->rotz) - (x1 - head->width / 2) * sin(head->rotz) + head->height / 2;
+
+  return (y2);
+}
+
+void    brain(t_fdflist *head, t_vector *eddo, t_vector *hedo)
+{
+  int x0;
+  int y0;
+  int x1;
+  int y1;
+
+  x0 = transform_x(head, eddo);
+  y0 = transform_y(head, eddo);
+  x1 = transform_x(head, hedo);
+  y1 = transform_y(head, hedo);
+  ft_line(head, x0, y0, x1, y1);
+}
+
+
+
+
+
+
+
+
+
+
+
+

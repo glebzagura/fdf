@@ -23,10 +23,7 @@ void	ft_rotation_left(t_fdflist *head)
 // 		while (eddo)
 // 		{
 // 			if (eddo->x == hedo->x)
-// 			{
-				
 // 				ft_line(head, hedo->x, hedo->y, eddo->x, eddo->y);
-// 			}
 // 			eddo = eddo->next;
 // 		}
 // 		hedo = hedo->next;
@@ -38,4 +35,4 @@ void	ft_rotation_left(t_fdflist *head)
 // 			ft_line(head, hedo->x, hedo->y, hedo->next->x, hedo->next->y);
 // 		hedo = hedo->next;
 // 	}
-}
+// }

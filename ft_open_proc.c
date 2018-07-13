@@ -36,8 +36,8 @@ void	ft_strlen_spec(char *str, t_fdflist *head)
 			height++;
 		i++;
 	}
-	head->height = height;
-	head->width = width;
+	head->height = height ;
+	head->width = width ;
 }
 
 void	ft_num(t_fdflist *head, int x, int y, int number)
@@ -69,8 +69,8 @@ void	ft_str_nospace(char *str, t_fdflist *head)
 	int		y;
 
 	i = 0;
-	y = 0;
-	x = 0;
+	y = 1;
+	x = 1;
 	num = NULL;
 	while (str[i] != '\0')
 	{
@@ -83,7 +83,7 @@ void	ft_str_nospace(char *str, t_fdflist *head)
 		if (str[i] == '\n')
 		{
 			y++;
-			x = 0;
+			x = 1;
 		}
 		if (str[i])
 			i++;
@@ -95,7 +95,9 @@ int		ft_write_data(t_fdflist *head)
 	char	*buffer;
 	char	*tmp;
 	int		fd;
+	int		i;
 
+	i = 0;
 	head->vector = ft_add_new(NULL);
 	head->curr = head->vector;
 	fd = open(head->filename, O_RDONLY);
@@ -109,5 +111,11 @@ int		ft_write_data(t_fdflist *head)
 	}
 	ft_strlen_spec(tmp, head);
 	ft_str_nospace(tmp, head);
+	while (head->curr->next && i != (head->width + head->height) / 2)
+	{
+		head->curr = head->curr->next;
+		i++;
+	}
+	head->cz = head->curr->z;
 	return (0);
 }

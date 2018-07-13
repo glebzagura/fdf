@@ -13,10 +13,11 @@
 #ifndef FDF_H
 # define FDF_H
 
-# define COLOR	0x00d8ff
+# define COLOR	0xFFFFF
 # define RAD	0.005
-# define PX		* 30 + 30
-# define PY		* 30 + 30
+# define PX		* (30 * head->kof)
+# define PY		* (30 * head->kof)
+# define PZ		* (30 * head->kof)
 # define VEC head->vector
 
 # include "minilibx/mlx.h"
@@ -42,9 +43,15 @@ typedef struct 			s_fdflist
 	char				*filename;
 	int					height;
 	int					width;
-	int					w_height;
 	int					w_width;
-	int					gap;
+	int					w_height;
+	int					cz;
+	float				plus_h;
+	float				plus_w;
+	float				rotx;
+	float				roty;
+	float				rotz;
+	float				kof;
 	t_vector			*vector;
 	t_vector			*curr;
 	struct s_fdflist 	*next;
@@ -54,5 +61,6 @@ int 	ft_write_data(t_fdflist *head);
 int		get_next_line(const int fd, char **line);
 int		ft_getnbr(char *str);
 void 	ft_ai(t_fdflist *head);
+void    brain(t_fdflist *head ,t_vector *eddo, t_vector *hedo);
 t_vector	*ft_add_new(t_vector *head);
 #endif

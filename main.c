@@ -19,26 +19,6 @@ void	ft_esc(t_fdflist *head)
 	exit(1);
 }
 
-int 	le_hook(int key, t_fdflist *head)
-{
-	int i = 0;
-	int j = 0;
-	int x = 250;
-	int y = 250;
-
-	mlx_string_put(head->mlx, head->wind, 50, 50, COLOR, "Hello");
-	if (key == 53)
-		ft_esc(head);
-	// if (key == 123)
-	// 	ft_rotation_left(head);
-	return (0);
-}
-
-// void	first_draw(t_fdflist *head)
-// {
-// 	ft_bresen(head);
-// }
-
 void	ft_bresen(t_fdflist *head)
 {
 	t_vector *hedo;
@@ -47,22 +27,69 @@ void	ft_bresen(t_fdflist *head)
 	hedo = VEC;
 	while (hedo->next)
 	{
+		if (hedo->next->next && hedo->x != (head->width))
+			brain(head, hedo, hedo->next);
 		eddo = hedo->next;
 		while (eddo)
 		{
 			if (eddo->x == hedo->x)
-				ft_line(head, hedo->x, hedo->y, eddo->x, eddo->y);
+			{
+				brain(head, hedo, eddo);
+				break ;
+			}
 			eddo = eddo->next;
 		}
 		hedo = hedo->next;
 	}
-	hedo = VEC;
-	while (hedo->next)
+}
+
+int 	le_hook(int key, t_fdflist *head)
+{
+	int i = 0;
+	int j = 0;
+	int x = 0;
+	int y = 250;
+
+	mlx_string_put(head->mlx, head->wind, 50, 50, COLOR, "Hello");
+	if (key == 53)
+		ft_esc(head);
+	if (key == 125)
 	{
-		if (hedo->next->next && hedo->x != (head->width - 1))
-			ft_line(head, hedo->x, hedo->y, hedo->next->x, hedo->next->y);
-		hedo = hedo->next;
+		mlx_clear_window (head->mlx, head->wind);
+		head->rotx = head->rotx + 0.08;
+		ft_bresen(head);
 	}
+	if (key == 126)
+	{
+		mlx_clear_window (head->mlx, head->wind);
+		head->rotx = head->rotx - 0.08;
+		ft_bresen(head);
+	}
+	if (key == 123)
+	{
+		mlx_clear_window (head->mlx, head->wind);
+		head->roty = head->roty + 0.08;
+		ft_bresen(head);
+	}
+	if (key == 124)
+	{
+		mlx_clear_window (head->mlx, head->wind);
+		head->roty = head->roty - 0.08;
+		ft_bresen(head);
+	}
+	if (key == 24)
+	{
+		mlx_clear_window (head->mlx, head->wind);
+		head->kof = head->kof + 0.1;
+		ft_bresen(head);
+	}
+	if ( key == 27)
+	{
+		mlx_clear_window (head->mlx, head->wind);
+		head->kof = head->kof - 0.1;
+		ft_bresen(head);
+	}
+	return (0);
 }
 
 int		main(int argc, char **argv)
@@ -74,8 +101,15 @@ int		main(int argc, char **argv)
 	ft_write_data(head);
 	if (!(head->mlx = mlx_init()))
 		return (0);
-	head->wind = mlx_new_window(head->mlx, 1000, 1000, "gzagura");
-	ft_bresen(head);
+	head->w_width = 1440;
+	head->w_height = 1080;
+	head->wind = mlx_new_window(head->mlx, 1440, 1080, "gzagura");
+	head->roty = 0.3;
+ 	head->rotz = 0;
+ 	head->rotx = -0.3;
+ 	head->kof = 1;
+ 	head->plus_h = (head->w_height - (head->height PY)) * 0.5;
+ 	head->plus_w = (head->w_width - (head->width PX)) * 0.5;
 	mlx_hook(head->wind, 2, 0, le_hook, head);
 	mlx_loop(head->mlx);
 	return (0);
