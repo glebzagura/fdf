@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void    ft_line(t_fdflist *head, int x0, int y0, int x1, int y1)
+void    ft_line(t_fdflist *head, int x0, int y0, int x1, int y1, int  color)
 {
   int dx = abs(x1 - x0);
   int dy = abs(y1 - y0);
@@ -24,7 +24,7 @@ void    ft_line(t_fdflist *head, int x0, int y0, int x1, int y1)
     int d = (dy << 1) - dx;
     int d1 = dy << 1;
     int d2 = (dy - dx) << 1;
-    mlx_pixel_put(head->mlx, head->wind, x0, y0, COLOR);
+    mlx_pixel_put(head->mlx, head->wind, x0, y0, color);
     for(int x = x0 + sx, y = y0, i = 1; i <= dx; i++, x += sx)
     {
       if (d > 0)
@@ -34,7 +34,7 @@ void    ft_line(t_fdflist *head, int x0, int y0, int x1, int y1)
       }
       else
         d += d1;
-      mlx_pixel_put(head->mlx, head->wind, x, y, COLOR);
+      mlx_pixel_put(head->mlx, head->wind, x, y, color);
     }
   }
   else
@@ -42,7 +42,7 @@ void    ft_line(t_fdflist *head, int x0, int y0, int x1, int y1)
     int d = (dx << 1) - dy;
     int d1 = dx << 1;
     int d2 = (dx - dy) << 1;
-    mlx_pixel_put(head->mlx, head->wind, x0, y0, COLOR);
+    mlx_pixel_put(head->mlx, head->wind, x0, y0, color);
     for(int y = y0 + sy, x = x0, i = 1; i <= dy; i++, y += sy)
     {
       if (d > 0)
@@ -52,12 +52,12 @@ void    ft_line(t_fdflist *head, int x0, int y0, int x1, int y1)
       }
       else
         d += d1;
-      mlx_pixel_put(head->mlx, head->wind, x, y, COLOR);
+      mlx_pixel_put(head->mlx, head->wind, x, y, color);
     }
   }
 }
 
-int    transform_x(t_fdflist *head, t_vector *eddo)
+int    *transform(t_fdflist *head, t_vector *eddo)
 {
   int x0;
   int x1;
@@ -67,31 +67,7 @@ int    transform_x(t_fdflist *head, t_vector *eddo)
   int y2;
   int z0;
   int z1;
-
-  x0 = eddo->x;
-  y0 = ((eddo->y - head->height / 2) PY) * cos(head->rotx) + ((eddo->z - head->cz) PZ) * sin(head->rotx) + (head->height / 2) PY + head->plus_h;
-  z0 = ((eddo->z - head->cz) PZ) * cos(head->rotx) - ((eddo->y - head->height / 2) PY) * sin(head->rotx) + head->cz PZ;
-
-  x1 = ((x0 - head->width / 2) PX) * cos(head->roty) - (z0 - head->cz) * sin(head->roty) + (head->width / 2) PX + head->plus_w;
-  y1 = y0;
-  z1 = (z0 - head->cz) * cos(head->roty) + (x0 - head->width / 2) * sin(head->roty) + head->cz;
-
-  x2 = (x1 - head->width / 2) * cos(head->rotz) + (y1 - head->height / 2) * sin(head->rotz) + head->width / 2;
-  y2 = (y1 - head->height / 2) * cos(head->rotz) - (x1 - head->width / 2) * sin(head->rotz) + head->height / 2;
-
-  return (x2);
-}
-
-int    transform_y(t_fdflist *head, t_vector *eddo)
-{
-  int x0;
-  int x1;
-  int x2;
-  int y0;
-  int y1;
-  int y2;
-  int z0;
-  int z1;
+  int *arr;
 
  
   x0 = eddo->x;
@@ -105,21 +81,20 @@ int    transform_y(t_fdflist *head, t_vector *eddo)
   x2 = (x1 - head->width / 2) * cos(head->rotz) + (y1 - head->height / 2) * sin(head->rotz) + head->width / 2;
   y2 = (y1 - head->height / 2) * cos(head->rotz) - (x1 - head->width / 2) * sin(head->rotz) + head->height / 2;
 
-  return (y2);
+  arr = malloc(sizeof((int*)2));
+  arr[0] = x2;
+  arr[1] = y2;
+  return (arr);
 }
 
 void    brain(t_fdflist *head, t_vector *eddo, t_vector *hedo)
 {
-  int x0;
-  int y0;
-  int x1;
-  int y1;
+  int *arr;
+  int *arr1;
 
-  x0 = transform_x(head, eddo);
-  y0 = transform_y(head, eddo);
-  x1 = transform_x(head, hedo);
-  y1 = transform_y(head, hedo);
-  ft_line(head, x0, y0, x1, y1);
+  arr = transform(head, eddo);
+  arr1 = transform(head, hedo);
+  ft_line(head, arr[0], arr[1], arr1[0], arr1[1], hedo->color);
 }
 
 

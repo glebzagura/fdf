@@ -45,6 +45,13 @@ void	ft_num(t_fdflist *head, int x, int y, int number)
 	head->curr->z = number;
 	head->curr->x = x;
 	head->curr->y = y;
+	if (head->tmp[0] != '\0')
+	{
+		head->curr->color = ft_atoi_base(head->tmp, 16);
+		ft_bzero(head->tmp, 5);
+	}
+	else
+		head->curr->color = ft_atoi_base("ffffff", 16);
 	head->curr = ft_add_new(head->vector);
 }
 
@@ -54,10 +61,12 @@ int		ft_space(char *str, int i, char **line)
 	int		end;
 
 	start = i;
+	*line = NULL;
 	while (str[i] != '\0' && str[i] != ' ' && str[i] != '\n')
 		i++;
 	end = i;
 	*line = ft_strsub(str, start, end);
+	//remake libft and remake strsub for me, cause this shit hoes wrong! 
 	return (end);
 }
 
@@ -77,7 +86,8 @@ void	ft_str_nospace(char *str, t_fdflist *head)
 		if (str[i] != ' ')
 		{
 			i = ft_space(str, i, &num);
-			ft_num(head, x, y, ft_getnbr(num));
+			ft_num(head, x, y, ft_getnbr(head, num));
+			free(num);
 			x++;
 		}
 		if (str[i] == '\n')

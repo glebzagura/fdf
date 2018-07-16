@@ -13,8 +13,7 @@
 #ifndef FDF_H
 # define FDF_H
 
-# define COLOR	0xFFFFF
-# define RAD	0.005
+# define COLOR	0xff006e
 # define PX		* (30 * head->kof)
 # define PY		* (30 * head->kof)
 # define PZ		* (30 * head->kof)
@@ -33,6 +32,7 @@ typedef struct 			s_vector
 	int					x;
 	int					y;
 	int					z;
+	int					color;
 	struct s_vector		*next;
 }						t_vector;
 
@@ -41,6 +41,7 @@ typedef struct 			s_fdflist
 	void 				*wind;
 	void 				*mlx;
 	char				*filename;
+	char				*tmp;
 	int					height;
 	int					width;
 	int					w_width;
@@ -59,8 +60,9 @@ typedef struct 			s_fdflist
 
 int 	ft_write_data(t_fdflist *head);
 int		get_next_line(const int fd, char **line);
-int		ft_getnbr(char *str);
+int		ft_getnbr(t_fdflist *head, char *str);
 void 	ft_ai(t_fdflist *head);
 void    brain(t_fdflist *head ,t_vector *eddo, t_vector *hedo);
 t_vector	*ft_add_new(t_vector *head);
+int			ft_atoi_base(char *nb, int base);
 #endif
