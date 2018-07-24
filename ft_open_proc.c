@@ -47,11 +47,20 @@ void	ft_num(t_fdflist *head, int x, int y, int number)
 	head->curr->y = y;
 	if (head->tmp[0] != '\0')
 	{
+
+		head->curr->r = ft_atoi_base(ft_strsub(head->tmp, 0, 2), 16);
+		head->curr->g = ft_atoi_base(ft_strsub(head->tmp, 2, 4), 16);
+		head->curr->b = ft_atoi_base(ft_strsub(head->tmp, 4, 6), 16);
 		head->curr->color = ft_atoi_base(head->tmp, 16);
 		ft_bzero(head->tmp, 5);
 	}
 	else
+	{
+		head->curr->r = 255;
+		head->curr->g = 255;
+		head->curr->b = 255;
 		head->curr->color = ft_atoi_base("ffffff", 16);
+	}
 	head->curr = ft_add_new(head->vector);
 }
 
@@ -66,7 +75,7 @@ int		ft_space(char *str, int i, char **line)
 		i++;
 	end = i;
 	*line = ft_strsub(str, start, end);
-	//remake libft and remake strsub for me, cause this shit hoes wrong! 
+	//remake libft and remake strsub for me, cause this shit goes wrong! 
 	return (end);
 }
 

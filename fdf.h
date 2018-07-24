@@ -32,6 +32,9 @@ typedef struct 			s_vector
 	int					x;
 	int					y;
 	int					z;
+	int					r;
+	int					g;
+	int					b;
 	int					color;
 	struct s_vector		*next;
 }						t_vector;
@@ -47,6 +50,9 @@ typedef struct 			s_fdflist
 	int					w_width;
 	int					w_height;
 	int					cz;
+	int	r;
+	int g;
+	int	b;
 	float				plus_h;
 	float				plus_w;
 	float				rotx;
@@ -62,7 +68,8 @@ int 	ft_write_data(t_fdflist *head);
 int		get_next_line(const int fd, char **line);
 int		ft_getnbr(t_fdflist *head, char *str);
 void 	ft_ai(t_fdflist *head);
-void    brain(t_fdflist *head ,t_vector *eddo, t_vector *hedo);
+void    color_brain(t_fdflist *head ,t_vector *eddo, t_vector *hedo);
 t_vector	*ft_add_new(t_vector *head);
 int			ft_atoi_base(char *nb, int base);
+void    ft_color_bresen(t_fdflist *head);
 #endif

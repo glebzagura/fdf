@@ -19,33 +19,10 @@ void	ft_esc(t_fdflist *head)
 	exit(1);
 }
 
-void	ft_bresen(t_fdflist *head)
-{
-	t_vector *hedo;
-	t_vector *eddo;
 
-	hedo = VEC;
-	while (hedo->next)
-	{
-		if (hedo->next->next && hedo->x != (head->width))
-			brain(head, hedo, hedo->next);
-		eddo = hedo->next;
-		while (eddo)
-		{
-			if (eddo->x == hedo->x)
-			{
-				brain(head, hedo, eddo);
-				break ;
-			}
-			eddo = eddo->next;
-		}
-		hedo = hedo->next;
-	}
-}
 
 int 	le_hook(int key, t_fdflist *head)
 {
-	mlx_string_put(head->mlx, head->wind, 50, 50, COLOR, "THIZ IZ MI FDF, by le gZAGURA");
 	if (key == 53)
 		ft_esc(head);
 	if (key == 125)
@@ -68,8 +45,13 @@ int 	le_hook(int key, t_fdflist *head)
 		head->plus_h += 50;
 	if (key == 84)
 		head->plus_h -= 50;
+	if (key == 78)
+		head->rotz = head->rotz - 0.08;
+	if (key == 69)
+		head->rotz = head->rotz + 0.08;
 	mlx_clear_window (head->mlx, head->wind);
-	ft_bresen(head);
+	mlx_string_put(head->mlx, head->wind, 50, 50, COLOR, "THIZ IZ MI FiDiFi, by le gZAGURA");
+	ft_color_bresen(head);
 	return (0);
 }
 
@@ -92,6 +74,9 @@ int		main(int argc, char **argv)
 	head = malloc(sizeof(t_fdflist));
 	head->filename = ft_strdup(argv[1]);
 	head->tmp = ft_strnew(5);
+	head->r = 0;
+	head->g = 255;
+	head->b = 0;
 	ft_write_data(head);
 	if (!(head->mlx = mlx_init()))
 		return (0);
@@ -103,6 +88,7 @@ int		main(int argc, char **argv)
  	head->rotx = -0.3;
  	head->kof = 1;
  	scale(head);
+ 	ft_color_bresen(head);
 	mlx_hook(head->wind, 2, 0, le_hook, head);
 	mlx_loop(head->mlx);
 	return (0);
