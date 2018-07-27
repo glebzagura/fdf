@@ -97,7 +97,6 @@ int		main(int argc, char **argv)
 {
 	t_fdflist	*head;
 
-	(void)argc;
 	head = malloc(sizeof(t_fdflist));
 	head->filename = ft_strdup(argv[1]);
 	head->tmp = ft_strnew(6);

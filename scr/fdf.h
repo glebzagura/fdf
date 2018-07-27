@@ -19,12 +19,12 @@
 # define PZ		* (30 * head->kof)
 # define VEC head->vector
 
-# include "./minilibx/mlx.h"
+# include "minilibx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
 # include <fcntl.h>
-# include "./libft/libft.h"
+# include "libft/libft.h"
 
 typedef struct 			s_vector
 {
