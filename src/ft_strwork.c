@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gzagura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/24 20:50:33 by gzagura           #+#    #+#             */
-/*   Updated: 2018/03/24 20:52:22 by gzagura          ###   ########.fr       */
+/*   Created: 2017/12/12 18:13:20 by gzagura           #+#    #+#             */
+/*   Updated: 2017/12/12 18:13:23 by gzagura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "fdf.h"
 
-# define BUFF_SIZE 10000
-
-# include "./libft/libft.h"
-
-typedef struct			s_getlist
+char	*ft_strwork(char const *s, unsigned int start, size_t len)
 {
-	int					num_fd;
-	char				*content;
-	struct s_getlist	*next;
-}						t_getlist;
+	size_t	j;
+	char	*sub_str;
 
-int						get_next_line(const int fd, char **line);
-
-#endif
+	if (s == NULL)
+		return (0);
+	sub_str = ft_strnew(len - start);
+	if (sub_str == NULL)
+		return (0);
+	j = 0;
+	while (s[start] != '\0' && start < len)
+	{
+		sub_str[j] = (char)s[start];
+		start++;
+		j++;
+	}
+	return (sub_str);
+}

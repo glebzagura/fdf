@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lstworker.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gzagura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/19 18:51:07 by gzagura           #+#    #+#             */
-/*   Updated: 2018/06/19 18:51:09 by gzagura          ###   ########.fr       */
+/*   Created: 2018/03/24 20:50:33 by gzagura           #+#    #+#             */
+/*   Updated: 2018/03/24 20:52:22 by gzagura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-t_vector	*ft_add_new(t_vector *head)
+# define BUFF_SIZE 10000
+
+# include "../libft/libft.h"
+
+typedef struct			s_getlist
 {
-	t_vector *new;
+	int					num_fd;
+	char				*content;
+	struct s_getlist	*next;
+}						t_getlist;
 
-	new = (t_vector *)malloc(sizeof(t_vector));
-	new->next = NULL;
-	if (head)
-	{
-		while (head->next)
-			head = head->next;
-		head->next = new;
-	}
-	return (new);
-}
+int						get_next_line(const int fd, char **line);
+
+#endif

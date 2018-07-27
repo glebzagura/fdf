@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ai.c                                            :+:      :+:    :+:   */
+/*   bresen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gzagura <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/21 18:08:24 by gzagura           #+#    #+#             */
-/*   Updated: 2018/06/21 18:08:25 by gzagura          ###   ########.fr       */
+/*   Created: 2018/07/27 23:59:11 by gzagura           #+#    #+#             */
+/*   Updated: 2018/07/27 23:59:14 by gzagura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_rgb(t_fdflist *head, t_vector *eddo, t_vector *hedo)
 		head->rgb += (head->b & 255);
 	}
 }
+
 void	ft_line1(t_fdflist *head, int *arr, t_vector *eddo, t_vector *hedo)
 {
 	int i;
@@ -92,8 +93,6 @@ void	ft_line2(t_fdflist *head, int *arr, t_vector *eddo, t_vector *hedo)
 	}
 }
 
-
-
 void	drawlala(t_fdflist *head, int *arr, t_vector *eddo, t_vector *hedo)
 {
 	int dx;
@@ -138,28 +137,4 @@ void    brain(t_fdflist *head, t_vector *eddo, t_vector *hedo)
 	arr[3] = (y0 - head->height / 2) * cos(head->rotz) - (x1 - head->width / 2) * sin(head->rotz) + head->height / 2;
 	drawlala(head, arr, eddo, hedo);
 	free(arr);
-}
-
-void    ft_draw_net(t_fdflist *head)
-{
-    t_vector *hedo;
-    t_vector *eddo;
-
-    hedo = VEC;
-    while (hedo->next)
-    {
-        if (hedo->next->next && hedo->x != (head->width))
-            brain(head, hedo, hedo->next);
-        eddo = hedo->next;
-        while (eddo)
-        {
-            if (eddo->x == hedo->x)
-            {
-                brain(head, eddo, hedo);
-                break ;
-            }
-            eddo = eddo->next;
-        }
-        hedo = hedo->next;
-    }
 }

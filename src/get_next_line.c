@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-static t_getlist				*ft_worklist(t_getlist *head, int fd)
+static t_getlist		*ft_worklist(t_getlist *head, int fd)
 {
 	if (head == NULL)
 	{
@@ -41,7 +41,7 @@ static t_getlist				*ft_worklist(t_getlist *head, int fd)
 	return (head->next);
 }
 
-static int						ft_wortstr(t_getlist *head, int bytes, char **line)
+static int				ft_wortstr(t_getlist *head, int bytes, char **line)
 {
 	char	*temp;
 
@@ -66,7 +66,7 @@ static int						ft_wortstr(t_getlist *head, int bytes, char **line)
 	return (0);
 }
 
-static int						ft_crazy(char *buffe, int fd, char **line, int bytes)
+static int				ft_crazy(char *buffe, int fd, char **line, int bytes)
 {
 	static t_getlist	*tmp = NULL;
 	t_getlist			*head;

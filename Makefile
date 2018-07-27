@@ -12,15 +12,15 @@
 
 CFLAGS		= -Wall -Werror -Wextra
 NAME		= fdf
-SCR 		= main.c ft_open_proc.c lstworker.c ft_strwork.c ft_getnbr.c bresen.c get_next_line.c
+SCR 		= src/main_fdf.c src/ft_open_proc.c src/lstworker.c src/ft_strwork.c src/ft_getnbr.c src/bresen.c src/get_next_line.c src/ft_atoi_base.c src/ft_draw.c
 OBJ			= $(SRC:%.c=%.o)
 
-.PHONY: norm all re clean fclean test
+.PHONY: norm all re clean fclean
 
 all: $(NAME)
 
 $(NAME): $(OBJ) ./libft/libft.a
-	gcc $(CFLAGS)  $(SCR) -I /usr/local/include -I -r ./libft/libft.a -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	gcc $(CFLAGS)  $(SCR) -I /usr/local/include -I -r ././libft/libft.a -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 ./libft/libft.a:
 	@$(MAKE) -C ./libft
@@ -32,10 +32,3 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
-norm:
-	norminette -R CheckForbiddenSourceHeader $(CFILES)
-
-test: test.c $(NAME)
-	gcc -o $@ $^ $(CFLAGS)
-

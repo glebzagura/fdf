@@ -36,8 +36,8 @@ void	ft_strlen_spec(char *str, t_fdflist *head)
 			height++;
 		i++;
 	}
-	head->height = height ;
-	head->width = width ;
+	head->height = height;
+	head->width = width;
 }
 
 void	ft_num(t_fdflist *head, int x, int y, int number)
